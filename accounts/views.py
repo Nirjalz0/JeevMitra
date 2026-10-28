@@ -9,8 +9,10 @@ class LoginView(ObtainAuthToken):
 
     def post(self,request,  *args, **kwargs):
         serializer=self.serializer_class(data=request.data,context={'request':request})
+
+        if not serializer.is_valid(): return Response( { 'message': 'Invalid username or password.', 'errors': serializer.errors })
         serializer.is_valid(raise_exception=True)
-        user=serializer.validate_data['user']
+        user=serializer.validated_data['user']
         token, _ =Token.objects.get_or_create(user=user)
         return Response({
             'token':token.key,
@@ -18,10 +20,11 @@ class LoginView(ObtainAuthToken):
             'username':user.username,
             'role': user.role,
             'is_verified': user.is_verified,
+            
         })
 class LogoutView(APIView):
     def post(self, request):
-        request.user.auth_token.dekere()
+        request.user.auth_token.delete()
         return Response({'detail':'Logged out.'})
 
 
