@@ -1,7 +1,7 @@
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
-from rest_framework import permissions,generics, status
+from rest_framework import  permissions,generics, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
 from .models import User
@@ -11,7 +11,7 @@ from .serializers import RegisterSerializer, UserSerializer
 
 class RegisterView(generics.CreateAPIView):
     queryset=User.objects.all()
-    serializer_class=RegisterSerializer
+    serializer_class=UserSerializer
     permission_classes=[permissions.AllowAny]
 
 class LoginView(ObtainAuthToken):
