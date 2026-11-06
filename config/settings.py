@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-REST_FRAMEWOR={
+REST_FRAMEWORK={
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
@@ -66,6 +66,7 @@ REST_FRAMEWOR={
     ],
 
 }
+FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:5173')
 
 ROOT_URLCONF = 'config.urls'
 
